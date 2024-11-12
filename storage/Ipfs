@@ -1,0 +1,11 @@
+# Use the official IPFS Kubo image
+FROM ipfs/kubo:latest
+
+# Expose IPFS default ports
+# 4001 - Peering connections
+# 5001 - IPFS API
+# 8080 - IPFS Gateway
+EXPOSE 4001 5001 8080
+
+# Start the IPFS daemon
+# CMD ["ipfs", "daemon", "--migrate=true"]

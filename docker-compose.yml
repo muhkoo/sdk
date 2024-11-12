@@ -1,0 +1,44 @@
+services:
+  ipfs:
+    build: 
+      context: ./storage
+      dockerfile: Ipfs
+    ports:
+      - "8080:8080"
+      - "4001:4001"
+      - "5001:5001"
+    volumes:
+      - ipfs_staging:/export
+      - ipfs_data:/data/ipfs
+  socket:
+    build: 
+      context: ./network
+      dockerfile: Socket
+    ports:
+      - "8083:8083"
+    environment:
+      - PORT=${SOCKET_PORT}
+    volumes:
+      - shared-data:/app/shared
+volumes:
+  shared-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SHARED_VOLUME_PATH}
+  ipfs_staging:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${IPFS_STAGING_PATH}
+  ipfs_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${IPFS_VOLUME_PATH}
+networks:
+  default:
+    driver: bridge

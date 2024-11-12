@@ -1,0 +1,17 @@
+{
+  "name": "sdk",
+  "version": "1.0.0",
+  "description": "Develop applications on muhkoo, locally with no cost!",
+  "main": "index.js",
+  "repository": "https://github.com/muhkoo/sdk.git",
+  "author": "simsman2695",
+  "license": "GPLv3",
+  "private": false,
+  "scripts": {
+    "up": "docker-compose up -d",
+    "down": "docker-compose down",
+    "logs": "docker-compose logs -f",
+    "restart": "docker-compose restart",
+    "build": "docker-compose build"
+    }
+}
