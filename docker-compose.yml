@@ -1,0 +1,41 @@
+services:
+  immutable_storage:
+    build: 
+      context: ./storage
+      dockerfile: Immutable
+    ports:
+      - "8081:8081"
+    environment:
+      - PORT=${IMMUTABLE_PORT}
+    volumes:
+      - shared-data:/app/shared
+  mutable_storage:
+    build: 
+      context: ./storage
+      dockerfile: Mutable
+    ports:
+      - "8082:8082"
+    environment:
+      - PORT=${MUTABLE_PORT}
+    volumes:
+      - shared-data:/app/shared
+  socket:
+    build: 
+      context: ./network
+      dockerfile: Socket
+    ports:
+      - "8083:8083"
+    environment:
+      - PORT=${SOCKET_PORT}
+    volumes:
+      - shared-data:/app/shared
+volumes:
+  shared-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SHARED_VOLUME_PATH}
+networks:
+  default:
+    driver: bridge
