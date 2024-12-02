@@ -1,0 +1,15 @@
+# Use an official base image
+FROM ubuntu:24.04
+
+# Create a directory in the container that will map to the volume
+RUN mkdir -p /shared-data
+
+# Copy a file into the shared data directory (optional)
+
+# Set the shared-data directory as the working directory
+WORKDIR /shared-data
+
+# Do something with the files in /shared-data
+RUN touch /shared-data/new-file.txt
+
+# Your other build instructions...
